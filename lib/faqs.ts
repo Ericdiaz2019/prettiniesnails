@@ -26,7 +26,7 @@ export const faqs = [
   {
     question: "Can I bring my child?",
     answer:
-      "No extra guess are allowed for pourpuses of safety and sanitation.",
+      "No extra guests are allowed for purposes of safety and sanitation.",
   },
   {
     question: "Do you take walk-ins?",
