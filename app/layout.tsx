@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter, Playfair_Display } from "next/font/google"
 import Script from "next/script"
+import MotionProvider from "@/components/motion-provider"
 import "./globals.css"
 
 const inter = Inter({
@@ -112,7 +113,7 @@ export default function RootLayout({
         <Script id="ld-json-prettiness-nails" type="application/ld+json" strategy="afterInteractive">
           {JSON.stringify(structuredData)}
         </Script>
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   )

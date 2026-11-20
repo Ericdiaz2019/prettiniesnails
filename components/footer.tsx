@@ -23,13 +23,8 @@ export default function Footer() {
             <h3 className="font-semibold">Quick Links</h3>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
-                <a href="#services" className="text-muted-foreground hover:text-foreground">
-                  Services
-                </a>
-              </li>
-              <li>
-                <a href="#gallery" className="text-muted-foreground hover:text-foreground">
-                  Gallery
+                <a href="#about" className="text-muted-foreground hover:text-foreground">
+                  About Amy
                 </a>
               </li>
               <li>
@@ -39,7 +34,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="#booking" className="text-muted-foreground hover:text-foreground">
-                  Book Now
+                  Services &amp; Booking
                 </a>
               </li>
             </ul>

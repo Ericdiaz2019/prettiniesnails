@@ -1,26 +1,25 @@
 import Header from "@/components/header"
 import Hero from "@/components/hero"
-import Services from "@/components/services"
-import Gallery from "@/components/gallery"
-import Booking from "@/components/booking"
+import About from "@/components/about"
 import Reviews from "@/components/reviews"
-import FAQ from "@/components/faq"
-import Location from "@/components/location"
+import Booking from "@/components/booking"
 import Footer from "@/components/footer"
 import StickyCTA from "@/components/sticky-cta"
+import { getAcuityCatalog } from "@/lib/acuity"
 
-export default function Home() {
+export const revalidate = 120
+
+export default async function Home() {
+  const catalog = await getAcuityCatalog()
+
   return (
     <>
       <Header />
       <main>
         <Hero />
-        <Services />
-        <Gallery />
-        <Booking />
+        <About />
         <Reviews />
-        <FAQ />
-        <Location />
+        <Booking initialCatalog={catalog} />
       </main>
       <Footer />
       <StickyCTA />
