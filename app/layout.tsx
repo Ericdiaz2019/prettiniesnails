@@ -1,8 +1,8 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Inter, Playfair_Display } from "next/font/google"
-import Script from "next/script"
 import MotionProvider from "@/components/motion-provider"
+import { BUSINESS, SITE_URL } from "@/lib/business"
 import "./globals.css"
 
 const inter = Inter({
@@ -17,89 +17,102 @@ const playfair = Playfair_Display({
   display: "swap",
 })
 
+export const viewport: Viewport = {
+  themeColor: "#be6bd1",
+  width: "device-width",
+  initialScale: 1,
+}
+
 export const metadata: Metadata = {
-  title: "Prettiness Nails — Gel & Acrylic Nails in South Bend, Granger, Mishawaka, Elkhart & Goshen",
-  description:
-    "Book beautiful gel and acrylic nails at Prettiness Nails. Clean studio, simple online booking, and long-lasting designs for clients across South Bend, Granger, Mishawaka, Elkhart, and Goshen.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Prettiness Nails by Amy | Nail Salon in Granger & South Bend, IN",
+    template: "%s | Prettiness Nails by Amy",
+  },
+  description: BUSINESS.shortDescription,
+  applicationName: BUSINESS.name,
+  authors: [{ name: BUSINESS.owner, url: SITE_URL }],
+  creator: BUSINESS.name,
+  publisher: BUSINESS.name,
+  category: "Beauty & Personal Care",
   keywords: [
     "Prettiness Nails",
-    "nail salon South Bend",
-    "nail salon Granger",
-    "nail salon Mishawaka",
-    "nail salon Elkhart",
-    "nail salon Goshen",
-    "gel nails",
-    "acrylic nails",
-    "nail art",
+    "Prettiness Nails by Amy",
+    "nail salon Granger IN",
+    "nail salon South Bend IN",
+    "nail salon Mishawaka IN",
+    "nail salon Elkhart IN",
+    "nail salon Goshen IN",
+    "private nail studio Granger",
+    "acrylic full sets Granger",
+    "acrylic fills South Bend",
+    "gel manicure Granger IN",
+    "builder gel overlay",
+    "pedicure Granger IN",
+    "custom nail art Michiana",
+    "nail tech near Notre Dame",
+    "appointment only nail salon Granger",
   ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
-    title: "Prettiness Nails — Gel & Acrylic Nails in Northern Indiana",
-    description:
-      "Clean, long-lasting gel and acrylic nails serving South Bend, Granger, Mishawaka, Elkhart, and Goshen. Reserve your appointment online.",
+    title: "Prettiness Nails by Amy — Private Nail Studio in Granger, IN",
+    description: BUSINESS.shortDescription,
     type: "website",
-    url: "https://prettinessnails.com/",
-    siteName: "Prettiness Nails",
+    url: `${SITE_URL}/`,
+    siteName: BUSINESS.name,
     locale: "en_US",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Prettiness Nails by Amy — Private Nail Studio in Granger, IN serving South Bend, Mishawaka, Elkhart & Goshen",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Prettiness Nails — Gel & Acrylic Nails in Northern Indiana",
-    description:
-      "Book your gel or acrylic manicure with Prettiness Nails. Serving South Bend, Granger, Mishawaka, Elkhart, and Goshen.",
-    site: "@prettinessnails",
+    title: "Prettiness Nails by Amy — Nail Salon in Granger & South Bend, IN",
+    description: BUSINESS.shortDescription,
+    images: ["/opengraph-image"],
   },
   alternates: {
     canonical: "/",
-  },
-  generator: "v0.app",
-}
-
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "NailSalon",
-  name: "Prettiness Nails",
-  image: "https://prettinessnails.com/og-image.jpg",
-  url: "https://prettinessnails.com/",
-  telephone: "+1-574-596-9371",
-  email: "prettiness.nails@gmail.com",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "51509 Bittersweet Rd",
-    addressLocality: "Granger",
-    addressRegion: "IN",
-    postalCode: "46530",
-    addressCountry: "US",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 41.727352,
-    longitude: -86.216246,
-  },
-  areaServed: [
-    { "@type": "City", name: "South Bend" },
-    { "@type": "City", name: "Granger" },
-    { "@type": "City", name: "Mishawaka" },
-    { "@type": "City", name: "Elkhart" },
-    { "@type": "City", name: "Goshen" },
-  ],
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Tuesday", "Wednesday", "Thursday"],
-      opens: "15:00",
-      closes: "18:30",
+    types: {
+      "text/plain": [
+        { url: "/llms.txt", title: "LLMs.txt — AI Summary for Prettiness Nails by Amy" },
+        { url: "/llms-full.txt", title: "LLMs Full — Complete Service Menu & Studio Info" },
+      ],
     },
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Friday", "Saturday"],
-      opens: "09:00",
-      closes: "18:30",
-    },
-  ],
-  sameAs: [
-    "https://www.instagram.com/prettiness.nails/",
-    "https://www.facebook.com/people/Prettiness-Nails-By-Amy/61568703693775/",
-  ],
+  },
+  formatDetection: {
+    telephone: true,
+    address: true,
+    email: true,
+  },
+  other: {
+    "geo.region": "US-IN",
+    "geo.placename": "Granger, Indiana",
+    "geo.position": `${BUSINESS.geo.latitude};${BUSINESS.geo.longitude}`,
+    ICBM: `${BUSINESS.geo.latitude}, ${BUSINESS.geo.longitude}`,
+    "business:contact_data:street_address": BUSINESS.address.street,
+    "business:contact_data:locality": BUSINESS.address.city,
+    "business:contact_data:region": BUSINESS.address.region,
+    "business:contact_data:postal_code": BUSINESS.address.postalCode,
+    "business:contact_data:country_name": "United States",
+    "business:contact_data:phone_number": BUSINESS.phoneE164,
+    "business:contact_data:website": `${SITE_URL}/`,
+  },
 }
 
 export default function RootLayout({
@@ -110,9 +123,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} antialiased`}>
       <body>
-        <Script id="ld-json-prettiness-nails" type="application/ld+json" strategy="afterInteractive">
-          {JSON.stringify(structuredData)}
-        </Script>
         <MotionProvider>{children}</MotionProvider>
       </body>
     </html>

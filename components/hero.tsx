@@ -48,7 +48,7 @@ export default function Hero() {
             variants={fadeUp}
             className="mx-auto mt-6 max-w-2xl text-balance text-lg text-muted-foreground sm:text-xl"
           >
-            Acrylic, gel polish, and custom designs by Amy. Appointment-only, so every set gets the time it deserves.
+            Acrylic full sets, fills, gel manicures, and custom nail art by Amy in Granger, IN — serving South Bend, Mishawaka, Elkhart &amp; Goshen. Appointment-only, so every set gets the time it deserves.
           </motion.p>
 
           <motion.div

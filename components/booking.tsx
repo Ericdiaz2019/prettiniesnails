@@ -57,29 +57,20 @@ import {
   type AvailableTimeSlot,
   type BookingService,
 } from "@/lib/acuity-types"
+import { BUSINESS } from "@/lib/business"
 import { fadeUp, stagger, viewportOnce } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 
 type BookingStep = "service" | "datetime" | "details" | "confirmed"
 
-const PHONE_DISPLAY = "(574) 596-9371"
-const PHONE_TEL = "+15745969371"
-const ADDRESS = "51509 Bittersweet Rd, Granger, IN 46530"
-const MAPS_URL = "https://maps.google.com/?q=51509+Bittersweet+Rd,+Granger,+IN+46530"
-
-const hours = [
-  { day: "Mon", time: "Closed" },
-  { day: "Tue – Thu", time: "3:00 – 6:30 PM" },
-  { day: "Fri – Sat", time: "9:00 AM – 6:30 PM" },
-  { day: "Sun", time: "By appointment" },
-]
-
-const goodToKnow = [
-  "Appointment-only — no walk-ins.",
-  "No extra guests, for safety and sanitation.",
-  "Cancellations: please give 24 hours notice.",
-  "Free fix within 3 days if anything lifts or chips.",
-]
+const PHONE_DISPLAY = BUSINESS.phoneDisplay
+const PHONE_TEL = BUSINESS.phoneTel
+const ADDRESS = BUSINESS.address.formatted
+const MAPS_URL = BUSINESS.maps.googlePlaceUrl
+const APPLE_MAPS_URL = BUSINESS.maps.appleMapsUrl
+const MAPS_EMBED_URL = BUSINESS.maps.googleEmbedUrl
+const hours = BUSINESS.hoursGrouped
+const goodToKnow = BUSINESS.policies
 
 const STEPS: Array<{
   id: Exclude<BookingStep, "confirmed">
@@ -1607,40 +1598,78 @@ export default function Booking({ initialCatalog }: { initialCatalog: AcuityCata
           )}
         </motion.div>
 
-        {/* Studio info + good-to-know */}
+        {/* Studio Location, Map, Hours & Good-to-Know */}
         <motion.div
+          id="location"
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
           variants={stagger}
-          className="mt-8 grid grid-cols-1 gap-4 sm:mt-12 sm:gap-5 lg:grid-cols-3"
+          className="mt-8 scroll-mt-20 grid grid-cols-1 gap-4 sm:mt-12 sm:gap-5 lg:grid-cols-3"
         >
           <motion.div variants={fadeUp} className="rounded-2xl border bg-card p-5 shadow-sm sm:p-6">
             <div className="mb-2.5 flex items-center gap-2 sm:mb-3">
               <MapPin className="h-5 w-5 text-primary" />
-              <h3 className="font-serif text-lg font-semibold">Studio</h3>
+              <h3 className="font-serif text-lg font-semibold">Studio Location</h3>
             </div>
-            <p className="text-sm text-muted-foreground">{ADDRESS}</p>
-            <Button asChild variant="outline" size="sm" className="mt-4 h-10 w-full bg-transparent">
-              <a href={MAPS_URL} target="_blank" rel="noopener noreferrer">
-                Get directions
-              </a>
-            </Button>
+            <address className="not-italic text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">{BUSINESS.name}</span>
+              <br />
+              {ADDRESS}
+            </address>
+            <p className="mt-1.5 text-xs text-muted-foreground">
+              Easy parking right outside. Minutes from South Bend, Mishawaka, Elkhart &amp; Goshen.
+            </p>
+            <div className="mt-3 overflow-hidden rounded-xl border bg-muted">
+              <iframe
+                src={MAPS_EMBED_URL}
+                width="400"
+                height="200"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="h-36 w-full sm:h-40"
+                title="Prettiness Nails by Amy on Google Maps — 51509 Bittersweet Rd, Granger, IN"
+              />
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <Button asChild variant="outline" size="sm" className="h-10 bg-transparent">
+                <a href={MAPS_URL} target="_blank" rel="noopener noreferrer">
+                  Google Maps
+                </a>
+              </Button>
+              <Button asChild variant="outline" size="sm" className="h-10 bg-transparent">
+                <a href={APPLE_MAPS_URL} target="_blank" rel="noopener noreferrer">
+                  Apple Maps
+                </a>
+              </Button>
+            </div>
           </motion.div>
 
           <motion.div variants={fadeUp} className="rounded-2xl border bg-card p-5 shadow-sm sm:p-6">
             <div className="mb-2.5 flex items-center gap-2 sm:mb-3">
               <Clock className="h-5 w-5 text-primary" />
-              <h3 className="font-serif text-lg font-semibold">Hours</h3>
+              <h3 className="font-serif text-lg font-semibold">Studio Hours</h3>
             </div>
-            <ul className="space-y-1.5 text-sm">
+            <ul className="space-y-2 text-sm">
               {hours.map((h) => (
-                <li key={h.day} className="flex justify-between gap-3">
+                <li key={h.day} className="flex items-center justify-between gap-3">
                   <span className="font-medium text-foreground">{h.day}</span>
-                  <span className="text-muted-foreground">{h.time}</span>
+                  <span
+                    className={
+                      h.closed ? "font-medium text-muted-foreground" : "text-muted-foreground"
+                    }
+                  >
+                    {h.time}
+                  </span>
                 </li>
               ))}
             </ul>
+            <p className="mt-4 border-t pt-3 text-xs leading-relaxed text-muted-foreground">
+              Closed Sunday &amp; Monday. Tuesday through Saturday hours are by appointment only.
+              Pay in person with cash, card, Apple Pay, or Tap to Pay.
+            </p>
           </motion.div>
 
           <motion.div variants={fadeUp} className="rounded-2xl border bg-card p-5 shadow-sm sm:p-6">

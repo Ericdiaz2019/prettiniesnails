@@ -12,6 +12,7 @@ const navItems = [
   { label: "About", href: "#about" },
   { label: "Reviews", href: "#reviews" },
   { label: "Services & Booking", href: "#booking" },
+  { label: "FAQ", href: "#faq" },
 ]
 
 export default function Header() {

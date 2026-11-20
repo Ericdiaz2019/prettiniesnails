@@ -40,7 +40,7 @@ export default function About() {
               {/* TODO: replace /Prettiness.jpg with Amy's portrait when ready */}
               <Image
                 src="/@Prettiness.jpg"
-                alt="Amy, owner of Prettiness Nails"
+                alt="Custom red and gold charm acrylic nail art set by Prettiness Nails by Amy in Granger, IN"
                 fill
                 sizes="(max-width: 1024px) 90vw, 480px"
                 className="object-cover"
